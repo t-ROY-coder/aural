@@ -1,133 +1,39 @@
-// import React, { Component } from "react";
-// import street from "../assets/street.jpg";
-// // Importing ml5.js as ml5
-// import * as ml5 from "ml5";
-
-// class AnalyzeImg extends Component {
-//   state = {
-//     predictions: [], // Set the empty array predictions state
-//   };
-
-//   setPredictions = (pred) => {
-//     // Set the prediction state with the model predictions
-//     this.setState({
-//       predictions: pred,
-//     });
-//   };
-
-//   classifyImg = () => {
-//     const classifier = ml5.objectDetector("cocossd", modelLoaded);
-
-//     function modelLoaded() {
-//       console.log("Model Loaded!");
-//     }
-
-//     const image = document.getElementById("image");
-
-//     classifier
-//       .detect(image, function (err, results) {
-//         console.log(results);
-//         return results;
-//       })
-//       .then((results) => {
-//         // Set the predictions in the state
-//         this.setPredictions(results);
-//       });
-//   };
-
-//   componentDidMount() {
-//     // once the component has mount, start the classification
-//     this.classifyImg();
-//   }
-
-//   render() {
-//     // First set the predictions to a default value while loading
-//     let predictions = <div className="loader"></div>;
-//     // Map over the predictions and return each prediction with probability
-//     if (this.state.predictions.length > 0) {
-//       predictions = this.state.predictions.map((pred, i) => {
-//         let { label, confidence } = pred;
-//         // round the probability with 2 decimal
-//         confidence = Math.floor(confidence * 10000) / 100 + "%";
-//         return (
-//           <div key={i + ""}>
-//             {i + 1}. Prediction: {label} at {confidence}{" "}
-//           </div>
-//         );
-//       });
-//     }
-
-//     return (
-//       <>
-//         <div className="container">
-//           <h2>Object Detection</h2>
-//           <img src={street} id="image" width="100%" alt="" />
-//         </div>
-//         {predictions}
-//       </>
-//     );
-//   }
-// }
-
-// export default AnalyzeImg;
-
-import React, { useEffect, useState } from "react";
-import street from "../assets/street.jpg";
-import * as ml5 from "ml5";
+import React from "react";
+import Sketch from "react-p5";
 
 function AnalyzeImg() {
-  const [pred, setPred] = useState([]);
+  let x = 50;
+  let y = 50;
+  let img;
 
-  useEffect(() => {
-    const classifier = ml5.objectDetector("cocossd", modelLoaded);
-
-    function modelLoaded() {
-      console.log("Model Loaded!");
-    }
-
-    const image = document.getElementById("image");
-
-    classifier
-      .detect(image, function (err, results) {
-        console.log(results);
-        return results;
-      })
-      .then((results) => {
-        setPred(results);
-      });
-  }, []);
-
-  if (pred.length > 0) {
-    return (
-      <>
-        <div className="container">
-          <h2>Object Detection</h2>
-          <img src={street} id="image" width="100%" alt="" />
-        </div>
-        {pred.map((prediction, i) => {
-          let confidence =
-            Math.floor(prediction.confidence * 10000) / 100 + "%";
-          return (
-            <div className="item" key={i}>
-              <p>
-                {i + 1}. {prediction.label}: {confidence}
-              </p>
-            </div>
-          );
-        })}
-      </>
+  const preload = (p5) => {
+    p5.loadImage(
+      "https://ourauckland.aucklandcouncil.govt.nz/media/34802/high-st-image.jpg",
+      (image) => {
+        img = image;
+      }
     );
-  } else {
-    return (
-      <>
-        <div className="container">
-          <h2>Object Detection</h2>
-          <img src={street} id="image" width="100%" alt="" />
-        </div>
-        <div className="loader"></div>
-      </>
-    );
-  }
+  };
+
+  const setup = (p5, canvasParentRef) => {
+    // use parent to render the canvas in this ref
+    // (without that p5 will render the canvas outside of your component)
+    console.log(img);
+    p5.createCanvas(img.width, img.height).parent(canvasParentRef);
+  };
+
+  const draw = (p5) => {
+    p5.background(0);
+    p5.image(img, 0, 0);
+    p5.ellipse(x, y, 70, 70);
+    // NOTE: Do not use setState in the draw function or in functions that are executed
+    // in the draw function...
+    // please use normal variables or class properties for these purposes
+    x++;
+    y++;
+  };
+
+  return <Sketch preload={preload} setup={setup} draw={draw} />;
 }
 
 export default AnalyzeImg;
