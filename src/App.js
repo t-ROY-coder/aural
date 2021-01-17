@@ -1,13 +1,17 @@
 import React from "react";
+import AnalyzeImg from "./components/AnalyzeImg";
 import Footer from "./components/Footer";
 import InputImg from "./components/InputImg";
+import Intro from "./components/Intro";
 
 function App() {
   return (
     <>
-      <div className="container" style={{ minHeight: "100vh" }}>
+      {/* <Intro /> */}
+      {/* <div className="container" style={{ minHeight: "100vh" }}>
         <InputImg />
-      </div>
+      </div> */}
+      <AnalyzeImg />
       <Footer />
     </>
   );
