@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 
 function InputImg() {
-  const [imgURL, setImgURL] = useState("");
-  const [img, setImg] = useState("");
+  const [imgURL, setImgURL] = useState(null);
+  const [img, setImg] = useState({ file: null });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setImg(imgURL);
-    console.log(imgURL);
+    setImg({ file: URL.createObjectURL(imgURL) });
   };
 
-  if (img) {
+  if (img.file) {
     return (
       <>
         <article>
+          <p>Image Upload : </p>
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-control">
-              <label htmlFor="imgURL">Image URL : </label>
               <input
-                type="text"
-                id="imgURL"
-                name="imgURL"
-                value={imgURL}
-                onChange={(e) => setImgURL(e.target.value)}
+                type="file"
+                id="img"
+                name="img"
+                onChange={(e) => {
+                  setImgURL(e.target.files[0]);
+                }}
               />
             </div>
             <button className="btn" type="submit">
@@ -30,7 +30,7 @@ function InputImg() {
             </button>
           </form>
         </article>
-        <img src={img} alt="Not Found" style={{ width: "100%" }} />
+        <img src={img.file} alt="Not Found" style={{ width: "100%" }} />
         <button className="btn">Analyze</button>
       </>
     );
@@ -38,15 +38,16 @@ function InputImg() {
     return (
       <>
         <article>
+          <p>Image Upload : </p>
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-control">
-              <label htmlFor="imgURL">Image URL : </label>
               <input
-                type="text"
-                id="imgURL"
-                name="imgURL"
-                value={imgURL}
-                onChange={(e) => setImgURL(e.target.value)}
+                type="file"
+                id="img"
+                name="img"
+                onChange={(e) => {
+                  setImgURL(e.target.files[0]);
+                }}
               />
             </div>
             <button className="btn" type="submit">
