@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DetectImgObj from "./DetectImgObj";
 
 function InputImg() {
   const [imgURL, setImgURL] = useState(null);
@@ -13,7 +14,7 @@ function InputImg() {
     return (
       <>
         <article>
-          <p>Image Upload : </p>
+          <h3>Image Upload : </h3>
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-control">
               <input
@@ -22,23 +23,25 @@ function InputImg() {
                 name="img"
                 onChange={(e) => {
                   setImgURL(e.target.files[0]);
+                  setImg({ file: null });
                 }}
               />
             </div>
             <button className="btn" type="submit">
-              View Image
+              Detect Objects
             </button>
           </form>
         </article>
-        <img src={img.file} alt="Not Found" style={{ width: "100%" }} />
-        <button className="btn">Analyze</button>
+        {/* <img src={img.file} alt="Not Found" style={{ width: "100%" }} />
+        <button className="btn">Analyze</button> */}
+        <DetectImgObj image={img} />
       </>
     );
   } else {
     return (
       <>
         <article>
-          <p>Image Upload : </p>
+          <h3>Image Upload : </h3>
           <form className="form" onSubmit={handleSubmit}>
             <div className="form-control">
               <input
@@ -51,7 +54,7 @@ function InputImg() {
               />
             </div>
             <button className="btn" type="submit">
-              View Image
+              Detect Objects
             </button>
           </form>
         </article>

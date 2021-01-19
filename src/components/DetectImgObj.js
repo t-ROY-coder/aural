@@ -74,20 +74,19 @@
 import React, { useEffect, useState } from "react";
 import * as ml5 from "ml5";
 
-import street from "../assets/cdc.jpg";
+// import street from "../assets/cdc.jpg";
 // let street = "https://ourauckland.aucklandcouncil.govt.nz/media/34802/high-st-image.jpg";
 
-function DetectImgObj() {
+function DetectImgObj(props) {
   const [pred, setPred] = useState([]);
 
   useEffect(() => {
+    const image = document.getElementById("image");
     const classifier = ml5.objectDetector("cocossd", modelLoaded);
 
     function modelLoaded() {
       console.log("Model Loaded!");
     }
-
-    const image = document.getElementById("image");
 
     classifier
       .detect(image, function (err, results) {
@@ -106,9 +105,9 @@ function DetectImgObj() {
     return (
       <>
         <div className="container">
-          <h2>Detecting Objects</h2>
+          <h3>Detecting Objects</h3>
           <img
-            src={street}
+            src={props.image.file}
             id="image"
             width="100%"
             alt=""
@@ -116,7 +115,7 @@ function DetectImgObj() {
           />
         </div>
         <div className="container">
-          <h3>Objects Detected: </h3>
+          <h4>Objects Detected: </h4>
           {pred.map((prediction, i) => {
             let confidence =
               Math.floor(prediction.confidence * 10000) / 100 + "%";
@@ -135,8 +134,8 @@ function DetectImgObj() {
     return (
       <>
         <div className="container">
-          <h2>Detecting Objects</h2>
-          <img src={street} id="image" width="100%" alt="" />
+          <h3>Detecting Objects</h3>
+          <img src={props.image.file} id="image" width="100%" alt="" />
         </div>
         <div className="loader"></div>
       </>
