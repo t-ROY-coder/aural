@@ -30,7 +30,7 @@ function InputImg() {
             </button>
           </form>
         </article>
-        <img src={img} alt="target img" style={{ width: "100%" }} />
+        <img src={img} alt="Not Found" style={{ width: "100%" }} />
         <button className="btn">Analyze</button>
       </>
     );

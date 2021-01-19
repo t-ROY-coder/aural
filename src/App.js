@@ -9,11 +9,11 @@ function App() {
   return (
     <>
       {/* <Intro /> */}
-      {/* <div className="container" style={{ minHeight: "100vh" }}>
+      <div className="container" style={{ minHeight: "100vh" }}>
         <InputImg />
-      </div> */}
+      </div>
       {/* <DetectImgObj /> */}
-      <AnalyzeImg />
+      {/* <AnalyzeImg /> */}
       <Footer />
     </>
   );

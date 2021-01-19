@@ -72,8 +72,10 @@
 // export default AnalyzeImg;
 
 import React, { useEffect, useState } from "react";
-import street from "../assets/street.jpg";
 import * as ml5 from "ml5";
+
+import street from "../assets/cdc.jpg";
+// let street = "https://ourauckland.aucklandcouncil.govt.nz/media/34802/high-st-image.jpg";
 
 function DetectImgObj() {
   const [pred, setPred] = useState([]);
@@ -89,6 +91,9 @@ function DetectImgObj() {
 
     classifier
       .detect(image, function (err, results) {
+        if (err) {
+          console.error(err);
+        }
         console.log(results);
         return results;
       })
@@ -101,8 +106,14 @@ function DetectImgObj() {
     return (
       <>
         <div className="container">
-          <h2>Object Detection</h2>
-          <img src={street} id="image" width="100%" alt="" />
+          <h2>Detecting Objects</h2>
+          <img
+            src={street}
+            id="image"
+            width="100%"
+            alt=""
+            crossOrigin="anonymous"
+          />
         </div>
         <div className="container">
           <h3>Objects Detected: </h3>
@@ -124,7 +135,7 @@ function DetectImgObj() {
     return (
       <>
         <div className="container">
-          <h2>Object Detection</h2>
+          <h2>Detecting Objects</h2>
           <img src={street} id="image" width="100%" alt="" />
         </div>
         <div className="loader"></div>

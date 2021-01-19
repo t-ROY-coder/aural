@@ -19,12 +19,16 @@ function AnalyzeImg() {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
     console.log(img);
-    p5.createCanvas(img.width, img.height).parent(canvasParentRef);
+    console.log(canvasParentRef);
+    p5.createCanvas(0.9 * window.innerWidth, window.innerHeight).parent(
+      canvasParentRef
+    );
   };
 
   const draw = (p5) => {
-    p5.background(0);
+    p5.background("rgba(0,0,0,1)");
     p5.image(img, 0, 0);
+    img.resize(0.9 * window.innerWidth, window.innerHeight);
     p5.ellipse(x, y, 70, 70);
     // NOTE: Do not use setState in the draw function or in functions that are executed
     // in the draw function...
@@ -33,7 +37,14 @@ function AnalyzeImg() {
     y++;
   };
 
-  return <Sketch preload={preload} setup={setup} draw={draw} />;
+  return (
+    <>
+      <div className="container-fluid">
+        <h2>Object Analysis</h2>
+        <Sketch preload={preload} setup={setup} draw={draw} />
+      </div>
+    </>
+  );
 }
 
 export default AnalyzeImg;
