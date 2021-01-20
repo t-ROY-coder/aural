@@ -1,25 +1,25 @@
 import React from "react";
 import Sketch from "react-p5";
+import { useParams } from "react-router-dom";
 
 function AnalyzeImg() {
   let x = 50;
   let y = 50;
   let img;
+  let imgURL = decodeURIComponent(useParams().imgURL);
 
+  console.log(imgURL);
   const preload = (p5) => {
-    p5.loadImage(
-      "https://ourauckland.aucklandcouncil.govt.nz/media/34802/high-st-image.jpg",
-      (image) => {
-        img = image;
-      }
-    );
+    p5.loadImage(imgURL, (image) => {
+      img = image;
+    });
   };
 
   const setup = (p5, canvasParentRef) => {
     // use parent to render the canvas in this ref
     // (without that p5 will render the canvas outside of your component)
-    console.log(img);
-    console.log(canvasParentRef);
+    // console.log(img);
+    // console.log(canvasParentRef);
     p5.createCanvas(0.9 * window.innerWidth, window.innerHeight).parent(
       canvasParentRef
     );

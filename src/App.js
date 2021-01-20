@@ -18,9 +18,7 @@ function App() {
             </div>
           </Route>
           {/* <DetectImgObj /> */}
-          <Route path="/analyzeImg">
-            <AnalyzeImg />
-          </Route>
+          <Route path="/analyzeImg/:imgURL" children={<AnalyzeImg />}></Route>
           <Route exact path="/">
             <Intro />
           </Route>
