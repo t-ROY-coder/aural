@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AnalyzeImg from "./components/AnalyzeImg";
 // import DetectImgObj from "./components/DetectImgObj";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 import InputImg from "./components/InputImg";
 import Intro from "./components/Intro";
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <>
       <Router>
+        <Header />
         <Switch>
           <Route path="/inputImg">
             <div className="container" style={{ minHeight: "100vh" }}>

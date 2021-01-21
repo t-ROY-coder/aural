@@ -8,7 +8,7 @@ function AnalyzeImg() {
   let img;
   let imgURL = decodeURIComponent(useParams().imgURL);
 
-  console.log(imgURL);
+  // console.log(imgURL);
   const preload = (p5) => {
     p5.loadImage(imgURL, (image) => {
       img = image;

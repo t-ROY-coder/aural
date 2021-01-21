@@ -6,7 +6,6 @@ function IntroSection(props) {
       className="product"
       style={{
         minHeight: "100vh",
-        marginTop: "2rem",
         position: "relative",
       }}
     >

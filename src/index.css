@@ -331,6 +331,27 @@ p {
   cursor: pointer;
 }
 
+header {
+  background-color: #222;
+  color: #fff;
+  width: 100%;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+header * {
+  display: inline-block;
+}
+
+header ul {
+  float: right;
+}
+
+header li {
+  margin: auto 2rem;
+  font-size: 125%;
+}
+
 footer {
   background-color: #222;
   color: #fff;
