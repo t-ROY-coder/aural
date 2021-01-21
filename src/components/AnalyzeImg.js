@@ -1,14 +1,12 @@
 import React from "react";
 import Sketch from "react-p5";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
 function AnalyzeImg() {
-  let x = 50;
-  let y = 50;
   let img;
   let imgURL = decodeURIComponent(useParams().imgURL);
 
-  // console.log(imgURL);
+  let results = useLocation().state.results;
   const preload = (p5) => {
     p5.loadImage(imgURL, (image) => {
       img = image;
@@ -29,12 +27,27 @@ function AnalyzeImg() {
     p5.background("rgba(0,0,0,1)");
     p5.image(img, 0, 0);
     img.resize(0.9 * window.innerWidth, window.innerHeight);
-    p5.ellipse(x, y, 70, 70);
+
+    for (let i = 0; i < results.length; i++) {
+      let object = results[i];
+      p5.stroke(0, 255, 0);
+      p5.strokeWeight(4);
+      p5.noFill();
+      p5.rect(
+        img.width * object.normalized.x,
+        img.height * object.normalized.y,
+        img.width * object.normalized.width,
+        img.height * object.normalized.height
+      );
+      p5.noStroke();
+      p5.fill(255);
+      p5.textSize(24);
+      p5.text(object.label, object.x + 10, object.y + 24);
+    }
+
     // NOTE: Do not use setState in the draw function or in functions that are executed
     // in the draw function...
     // please use normal variables or class properties for these purposes
-    x++;
-    y++;
   };
 
   return (

@@ -73,6 +73,7 @@
 
 import React, { useEffect, useState } from "react";
 import * as ml5 from "ml5";
+import { Link } from "react-router-dom";
 
 // import street from "../assets/cdc.jpg";
 // let street = "https://ourauckland.aucklandcouncil.govt.nz/media/34802/high-st-image.jpg";
@@ -128,6 +129,15 @@ function DetectImgObj(props) {
             );
           })}
         </div>
+        <Link
+          to={{
+            pathname: "/analyzeImg/" + encodeURIComponent(props.image.file),
+            state: { results: pred },
+          }}
+          className="btn"
+        >
+          Analyze
+        </Link>
       </>
     );
   } else {

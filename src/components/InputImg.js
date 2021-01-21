@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import DetectImgObj from "./DetectImgObj";
 
 function InputImg() {
@@ -35,12 +34,6 @@ function InputImg() {
         </article>
         {/* <img src={img.file} alt="Not Found" style={{ width: "100%" }} /> */}
         <DetectImgObj image={img} />
-        <Link
-          to={"/analyzeImg/" + encodeURIComponent(img.file)}
-          className="btn"
-        >
-          Analyze
-        </Link>
       </>
     );
   } else {
