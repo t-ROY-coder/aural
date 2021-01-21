@@ -42,7 +42,11 @@ function AnalyzeImg() {
       p5.noStroke();
       p5.fill(255);
       p5.textSize(24);
-      p5.text(object.label, object.x + 10, object.y + 24);
+      p5.text(
+        object.label,
+        img.width * object.normalized.x + 10,
+        img.height * object.normalized.y + 24
+      );
     }
 
     // NOTE: Do not use setState in the draw function or in functions that are executed
