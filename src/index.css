@@ -344,6 +344,11 @@ header * {
   display: inline-block;
 }
 
+header img {
+  height: 2rem;
+  margin: auto 1rem;
+}
+
 header ul {
   float: right;
 }
