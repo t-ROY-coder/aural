@@ -49,6 +49,14 @@ function AnalyzeImg() {
       );
     }
 
+    console.log(p5.mouseX);
+    console.log(p5.mouseY);
+    p5.ellipse(p5.mouseX, p5.mouseY, 30, 30);
+
+    // console.log(p5);
+    // let foo = new p5.Speech(); // speech synthesis object
+    // if (p5.mouseX === 0) foo.speak("hi there");
+
     // NOTE: Do not use setState in the draw function or in functions that are executed
     // in the draw function...
     // please use normal variables or class properties for these purposes
