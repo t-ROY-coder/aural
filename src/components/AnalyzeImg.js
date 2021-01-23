@@ -3,10 +3,13 @@ import Sketch from "react-p5";
 import { useLocation, useParams } from "react-router-dom";
 
 function AnalyzeImg() {
+  let x;
+  let y;
   let img;
   let imgURL = decodeURIComponent(useParams().imgURL);
 
   let results = useLocation().state.results;
+
   const preload = (p5) => {
     p5.loadImage(imgURL, (image) => {
       img = image;
@@ -18,6 +21,9 @@ function AnalyzeImg() {
     // (without that p5 will render the canvas outside of your component)
     // console.log(img);
     // console.log(canvasParentRef);
+    x = p5.mouseX;
+    y = p5.mouseY;
+
     p5.createCanvas(0.9 * window.innerWidth, window.innerHeight).parent(
       canvasParentRef
     );
@@ -49,11 +55,38 @@ function AnalyzeImg() {
       );
     }
 
-    console.log(p5.mouseX);
-    console.log(p5.mouseY);
-    p5.ellipse(p5.mouseX, p5.mouseY, 30, 30);
+    if (y !== p5.mouseY || x !== p5.mouseX) {
+      x = p5.mouseX;
+      y = p5.mouseY;
+      // console.log(p5.mouseX);
+      // console.log(p5.mouseY);
+      let flag = false;
+      for (let i = 0; i < results.length; i++) {
+        if (
+          x > img.width * results[i].normalized.x &&
+          x <
+            img.width *
+              (results[i].normalized.x + results[i].normalized.width) &&
+          y > img.height * results[i].normalized.y &&
+          y <
+            img.height *
+              (results[i].normalized.y + results[i].normalized.height)
+        ) {
+          flag = results[i];
+          break;
+        }
+      }
 
-    // console.log(p5);
+      if (flag) {
+        let utterance = new SpeechSynthesisUtterance(flag.label);
+        // console.log(flag.label);
+        speechSynthesis.speak(utterance);
+      } else {
+        speechSynthesis.cancel();
+      }
+    }
+    p5.ellipse(x, y, 30, 30);
+
     // let foo = new p5.Speech(); // speech synthesis object
     // if (p5.mouseX === 0) foo.speak("hi there");
 
