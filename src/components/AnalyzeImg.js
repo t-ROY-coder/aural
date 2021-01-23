@@ -72,8 +72,15 @@ function AnalyzeImg() {
             img.height *
               (results[i].normalized.y + results[i].normalized.height)
         ) {
-          flag = results[i];
-          break;
+          if (flag) {
+            let areaFlag = flag.normalized.width * flag.normalized.height;
+            let areaRes =
+              results[i].normalized.width * results[i].normalized.height;
+            flag = areaFlag > areaRes ? results[i] : flag;
+          } else {
+            flag = results[i];
+          }
+          // break;
         }
       }
 
