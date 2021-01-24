@@ -11,7 +11,9 @@ function Header() {
           <h3>My-App</h3>
         </Link>
         <ul>
-          <li>Image Analysis</li>
+          <Link to="/inputImg">
+            <li>Image Analysis</li>
+          </Link>
           <li>Graph Analysis</li>
         </ul>
       </header>
