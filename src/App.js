@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AnalyzeGraph from "./components/AnalyzeGraph";
 
 import AnalyzeImg from "./components/AnalyzeImg";
 // import DetectImgObj from "./components/DetectImgObj";
@@ -21,6 +22,11 @@ function App() {
           </Route>
           {/* <DetectImgObj /> */}
           <Route path="/analyzeImg/:imgURL" children={<AnalyzeImg />}></Route>
+          <Route path="/AnalyzeGraph">
+            {/* <div className="container" style={{ minHeight: "100vh" }}> */}
+            <AnalyzeGraph />
+            {/* </div> */}
+          </Route>
           <Route exact path="/">
             <Intro />
           </Route>
