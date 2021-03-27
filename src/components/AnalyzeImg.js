@@ -1,5 +1,6 @@
 import React from "react";
 import Sketch from "react-p5";
+import * as Tone from "tone";
 import { useLocation, useParams } from "react-router-dom";
 
 function AnalyzeImg() {
@@ -27,6 +28,16 @@ function AnalyzeImg() {
     p5.createCanvas(0.9 * window.innerWidth, window.innerHeight).parent(
       canvasParentRef
     );
+  };
+
+  const mouseClicked = (p5) => {
+    const synth = new Tone.Synth().toDestination();
+    const now = Tone.now();
+    synth.triggerAttackRelease("C4", "16n", now);
+    synth.triggerAttackRelease("G4", "8n", now + 0.25);
+
+    console.log(p5.mouseX, p5.mouseY);
+    console.log(p5);
   };
 
   const draw = (p5) => {
@@ -106,7 +117,12 @@ function AnalyzeImg() {
     <>
       <div className="container-fluid">
         <h2>Object Analysis</h2>
-        <Sketch preload={preload} setup={setup} draw={draw} />
+        <Sketch
+          preload={preload}
+          setup={setup}
+          draw={draw}
+          mouseClicked={mouseClicked}
+        />
       </div>
     </>
   );
