@@ -21,6 +21,22 @@ function AnalyzeGraph() {
     w = 0.9 * window.innerWidth;
     h = window.innerHeight;
 
+    p5.createCanvas(w, h).parent(canvasParentRef);
+  };
+
+  const keyTyped = (p5) => {
+    if (p5.key === "i" && resolution > 1) {
+      resolution--;
+    }
+    if (p5.key === "o" && resolution < 10) {
+      resolution++;
+    }
+    // p5.redraw();
+  };
+
+  const draw = (p5) => {
+    p5.background(220);
+
     for (let i = 0; i < resolution * 10; i++) {
       let step = w / (resolution * 10);
       let pt = i * step;
@@ -32,22 +48,6 @@ function AnalyzeGraph() {
       }
       Ycoord.push(h - Ypt);
     }
-
-    p5.createCanvas(w, h).parent(canvasParentRef);
-  };
-
-  const mouseClicked = (p5) => {
-    const synth = new Tone.Synth().toDestination();
-    const now = Tone.now();
-    synth.triggerAttackRelease("C4", "16n", now);
-    synth.triggerAttackRelease("G4", "8n", now + 0.25);
-
-    console.log(p5.mouseX, p5.mouseY);
-    console.log(p5);
-  };
-
-  const draw = (p5) => {
-    p5.background(220);
 
     // grid
     for (var y = 0; y < h; y += w / (resolution * 10)) {
@@ -72,12 +72,15 @@ function AnalyzeGraph() {
     for (let i = 0; i < numPts; i++) {
       p5.ellipse(Xcoord[i], Ycoord[i], 10);
     }
+
+    Xcoord = [];
+    Ycoord = [];
   };
   return (
     <>
       <div className="container-fluid">
         <h2>Graph Analysis</h2>
-        <Sketch setup={setup} draw={draw} mouseClicked={mouseClicked} />
+        <Sketch setup={setup} draw={draw} keyTyped={keyTyped} />
       </div>
     </>
   );
