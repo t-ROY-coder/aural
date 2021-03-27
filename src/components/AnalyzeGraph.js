@@ -12,8 +12,7 @@ function AnalyzeGraph() {
   let Xcoord = [];
   let Ycoord = [];
 
-  //   let a = 1;
-  //   let b = 2;
+  let coeff = [1, 1];
   let resolution = 5;
 
   const setup = (p5, canvasParentRef) => {
@@ -26,7 +25,12 @@ function AnalyzeGraph() {
       let step = w / (resolution * 10);
       let pt = i * step;
       Xcoord.push(pt);
-      Ycoord.push(h - (pt + 2 * step));
+
+      let Ypt = 0;
+      for (let j = 0; j < coeff.length; j++) {
+        Ypt += Math.pow(i, coeff.length - 1 - j) * coeff[j] * step;
+      }
+      Ycoord.push(h - Ypt);
     }
 
     p5.createCanvas(w, h).parent(canvasParentRef);
