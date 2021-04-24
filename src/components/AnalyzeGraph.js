@@ -12,7 +12,7 @@ function AnalyzeGraph() {
   let Xcoord = [];
   let Ycoord = [];
 
-  let coeff = [1, 1];
+  let coeff = [1, -15, 60];
   let resolution = 5;
 
   const setup = (p5, canvasParentRef) => {
