@@ -1,6 +1,7 @@
 import React from "react";
 import Sketch from "react-p5";
-import * as Tone from "tone";
+import hexToColorName from "hex-to-color-name";
+import rgbHex from "rgb-hex";
 import { useLocation, useParams } from "react-router-dom";
 
 function AnalyzeImg() {
@@ -31,13 +32,23 @@ function AnalyzeImg() {
   };
 
   const mouseClicked = (p5) => {
-    const synth = new Tone.Synth().toDestination();
-    const now = Tone.now();
-    synth.triggerAttackRelease("C4", "16n", now);
-    synth.triggerAttackRelease("G4", "8n", now + 0.25);
+    // const synth = new Tone.Synth().toDestination();
+    // const now = Tone.now();
+    // synth.triggerAttackRelease("C4", "16n", now);
+    // synth.triggerAttackRelease("G4", "8n", now + 0.25);
+
+    // console.log(colors);
 
     console.log(p5.mouseX, p5.mouseY);
-    console.log(p5);
+    let colorInfo = p5._colorMaxes.rgb;
+    console.log(colorInfo);
+
+    let colorName = hexToColorName(
+      rgbHex(colorInfo[0], colorInfo[1], colorInfo[2])
+    );
+
+    let utterance = new SpeechSynthesisUtterance("color" + colorName);
+    speechSynthesis.speak(utterance);
   };
 
   const draw = (p5) => {
