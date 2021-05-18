@@ -16,7 +16,7 @@ function Intro() {
             </Link>
           </div>
           <div className="col">
-            <Link to="/AnalyzeGraph">
+            <Link to="/InputGraph">
               <IntroSection
                 title="Graph Analysis"
                 url="https://www.creativefabrica.com/wp-content/uploads/2019/12/16/business-profit-graph-line-art-vector-Graphics-1-1-580x386.jpg"

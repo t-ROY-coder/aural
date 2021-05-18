@@ -14,7 +14,9 @@ function Header() {
           <Link to="/inputImg">
             <li>Image Analysis</li>
           </Link>
-          <li>Graph Analysis</li>
+          <Link to="/InputGraph">
+            <li>Graph Analysis</li>
+          </Link>
         </ul>
       </header>
     </>

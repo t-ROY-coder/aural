@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import AnalyzeGraph from "./components/AnalyzeGraph";
-
+import InputGraph from "./components/InputGraph";
 import AnalyzeImg from "./components/AnalyzeImg";
 // import DetectImgObj from "./components/DetectImgObj";
 import Footer from "./components/Footer";
@@ -26,6 +26,11 @@ function App() {
             {/* <div className="container" style={{ minHeight: "100vh" }}> */}
             <AnalyzeGraph />
             {/* </div> */}
+          </Route>
+          <Route path="/InputGraph">
+            <div className="container" style={{ minHeight: "100vh" }}>
+              <InputGraph />
+            </div>
           </Route>
           <Route exact path="/">
             <Intro />

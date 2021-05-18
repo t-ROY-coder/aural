@@ -12,7 +12,8 @@ function AnalyzeGraph() {
   let Xcoord = [];
   let Ycoord = [];
 
-  let coeff = [1, -15, 60];
+  let input = useLocation().state;
+  let coeff = [input.x2, input.x1, input.x0];
   let resolution = 5;
 
   const setup = (p5, canvasParentRef) => {
