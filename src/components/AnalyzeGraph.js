@@ -7,6 +7,7 @@ function AnalyzeGraph() {
   let x;
   let y;
   let w;
+  let step;
   let h;
   let numPts = 100;
   let Xcoord = [];
@@ -16,11 +17,28 @@ function AnalyzeGraph() {
   let coeff = [input.x2, input.x1, input.x0];
   let resolution = 5;
 
+  // const vol = new Tone.Volume(-20).toDestination();
+  const source = new Tone.Oscillator().toDestination();
+
   const setup = (p5, canvasParentRef) => {
     x = p5.mouseX;
     y = p5.mouseY;
     w = 0.9 * window.innerWidth;
     h = window.innerHeight;
+    console.log(p5);
+
+    // claculating data points
+    for (let i = 0; i < resolution * 10; i++) {
+      step = w / (resolution * 10);
+      let pt = i * step;
+      Xcoord.push(pt);
+
+      let Ypt = 0;
+      for (let j = 0; j < coeff.length; j++) {
+        Ypt += Math.pow(i, coeff.length - 1 - j) * coeff[j] * step;
+      }
+      Ycoord.push(h - Ypt);
+    }
 
     p5.createCanvas(w, h).parent(canvasParentRef);
   };
@@ -37,19 +55,6 @@ function AnalyzeGraph() {
 
   const draw = (p5) => {
     p5.background(220);
-
-    for (let i = 0; i < resolution * 10; i++) {
-      let step = w / (resolution * 10);
-      let pt = i * step;
-      Xcoord.push(pt);
-
-      let Ypt = 0;
-      for (let j = 0; j < coeff.length; j++) {
-        Ypt += Math.pow(i, coeff.length - 1 - j) * coeff[j] * step;
-      }
-      Ycoord.push(h - Ypt);
-    }
-
     // grid
     for (var y = 0; y < h; y += w / (resolution * 10)) {
       p5.stroke(0);
@@ -72,16 +77,41 @@ function AnalyzeGraph() {
     // draw ellipses
     for (let i = 0; i < numPts; i++) {
       p5.ellipse(Xcoord[i], Ycoord[i], 10);
+      // ellipse.mouseOver(prompt);
     }
 
-    Xcoord = [];
-    Ycoord = [];
+    p5.ellipse(p5.mouseX, p5.mouseY, 30, 30);
   };
+
+  const prompt = () => {
+    const synth = new Tone.Synth().toDestination();
+    const now = Tone.now();
+    synth.triggerAttackRelease("C4", "8n", now);
+  };
+
+  const mouseMoved = (p5) => {
+    let posX = p5.mouseX / step;
+    let posY = (h - p5.mouseY) / step;
+    let val = posX * posX * input.x2 + posX * input.x1 + input.x0;
+    if (Math.abs(val - posY) < 1) {
+      console.log("tracing");
+      if (source.state === "stopped") source.start();
+    } else {
+      console.log("stopped tracing");
+      if (source.state === "started") source.stop();
+    }
+  };
+
   return (
     <>
       <div className="container-fluid">
         <h2>Graph Analysis</h2>
-        <Sketch setup={setup} draw={draw} keyTyped={keyTyped} />
+        <Sketch
+          setup={setup}
+          draw={draw}
+          keyTyped={keyTyped}
+          mouseMoved={mouseMoved}
+        />
       </div>
     </>
   );
