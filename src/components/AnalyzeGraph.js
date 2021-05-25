@@ -15,6 +15,16 @@ function AnalyzeGraph() {
 
   let input = useLocation().state;
   let coeff = [input.x2, input.x1, input.x0];
+  let xParam = input.xParam;
+  let yParam = input.yParam;
+
+  let gType = "Quadratic";
+  if (input.x2 == 0 && input.x1 != 0) {
+    gType = "Linear";
+  } else if (input.x2 == 0 && input.x1 == 0) {
+    gType = "Constant";
+  }
+
   let resolution = 5;
 
   // const vol = new Tone.Volume(-20).toDestination();
@@ -41,6 +51,14 @@ function AnalyzeGraph() {
     }
 
     p5.createCanvas(w, h).parent(canvasParentRef);
+
+    let utterance = new SpeechSynthesisUtterance(
+      "Graph of " + yParam + " vs " + xParam
+    );
+    speechSynthesis.speak(utterance);
+
+    utterance = new SpeechSynthesisUtterance("The Graph is " + gType);
+    speechSynthesis.speak(utterance);
   };
 
   const keyTyped = (p5) => {
