@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/my-app-logo.png";
+import logo from "../assets/webapp-light.png";
 
 function Header() {
   return (
     <>
       <header>
         <Link to="/">
-          <img src={logo} alt="logo" />
-          <h3>My-App</h3>
+          <div>
+            <img src={logo} alt="logo" />
+            <h3>Aural</h3>
+          </div>
         </Link>
         <ul>
           <Link to="/inputImg">
