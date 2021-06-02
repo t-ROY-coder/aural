@@ -31,26 +31,6 @@ function AnalyzeImg() {
     );
   };
 
-  const mouseClicked = (p5) => {
-    // const synth = new Tone.Synth().toDestination();
-    // const now = Tone.now();
-    // synth.triggerAttackRelease("C4", "16n", now);
-    // synth.triggerAttackRelease("G4", "8n", now + 0.25);
-
-    // console.log(colors);
-
-    console.log(p5.mouseX, p5.mouseY);
-    let colorInfo = p5._colorMaxes.rgb;
-    console.log(colorInfo);
-
-    let colorName = hexToColorName(
-      rgbHex(colorInfo[0], colorInfo[1], colorInfo[2])
-    );
-
-    let utterance = new SpeechSynthesisUtterance("color" + colorName);
-    speechSynthesis.speak(utterance);
-  };
-
   const draw = (p5) => {
     p5.background("rgba(0,0,0,1)");
     p5.image(img, 0, 0);
@@ -124,10 +104,30 @@ function AnalyzeImg() {
     // please use normal variables or class properties for these purposes
   };
 
+  const mouseClicked = (p5) => {
+    // const synth = new Tone.Synth().toDestination();
+    // const now = Tone.now();
+    // synth.triggerAttackRelease("C4", "16n", now);
+    // synth.triggerAttackRelease("G4", "8n", now + 0.25);
+
+    // console.log(colors);
+
+    console.log(p5.mouseX, p5.mouseY);
+    let colorInfo = p5._colorMaxes.rgb;
+    console.log(colorInfo);
+
+    let colorName = hexToColorName(
+      rgbHex(colorInfo[0], colorInfo[1], colorInfo[2])
+    );
+
+    let utterance = new SpeechSynthesisUtterance("color " + colorName);
+    speechSynthesis.speak(utterance);
+  };
+
   return (
     <>
       <div className="container-fluid">
-        <h2>Object Analysis</h2>
+        <h2>Image Analysis</h2>
         <Sketch
           preload={preload}
           setup={setup}
