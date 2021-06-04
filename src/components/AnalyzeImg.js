@@ -1,7 +1,8 @@
 import React from "react";
 import Sketch from "react-p5";
-import hexToColorName from "hex-to-color-name";
+import namer from "color-namer-sdk";
 import rgbHex from "rgb-hex";
+import getPixels from "get-pixels";
 import { useLocation, useParams } from "react-router-dom";
 
 function AnalyzeImg() {
@@ -9,8 +10,26 @@ function AnalyzeImg() {
   let y;
   let img;
   let imgURL = decodeURIComponent(useParams().imgURL);
+  let imgPixels;
+  let imgW;
+  let imgH;
+  let PixD;
+  let posX;
+  let posY;
 
   let results = useLocation().state.results;
+
+  getPixels(imgURL, function (err, pixels) {
+    if (err) {
+      console.log("Bad image path");
+      return;
+    }
+    imgPixels = pixels;
+    imgW = pixels.shape[0];
+    imgH = pixels.shape[1];
+    PixD = pixels.shape[2];
+    console.log("got pixels", pixels);
+  });
 
   const preload = (p5) => {
     p5.loadImage(imgURL, (image) => {
@@ -60,8 +79,6 @@ function AnalyzeImg() {
     if (y !== p5.mouseY || x !== p5.mouseX) {
       x = p5.mouseX;
       y = p5.mouseY;
-      // console.log(p5.mouseX);
-      // console.log(p5.mouseY);
       let flag = false;
       for (let i = 0; i < results.length; i++) {
         if (
@@ -82,45 +99,46 @@ function AnalyzeImg() {
           } else {
             flag = results[i];
           }
-          // break;
         }
       }
 
       if (flag) {
         let utterance = new SpeechSynthesisUtterance(flag.label);
-        // console.log(flag.label);
         speechSynthesis.speak(utterance);
       } else {
         speechSynthesis.cancel();
       }
     }
     p5.ellipse(x, y, 30, 30);
-
-    // let foo = new p5.Speech(); // speech synthesis object
-    // if (p5.mouseX === 0) foo.speak("hi there");
-
-    // NOTE: Do not use setState in the draw function or in functions that are executed
-    // in the draw function...
-    // please use normal variables or class properties for these purposes
   };
 
   const mouseClicked = (p5) => {
-    // const synth = new Tone.Synth().toDestination();
-    // const now = Tone.now();
-    // synth.triggerAttackRelease("C4", "16n", now);
-    // synth.triggerAttackRelease("G4", "8n", now + 0.25);
+    if (!imgPixels) {
+      return;
+    }
+    posX = Math.round((p5.mouseX * imgW) / img.width);
+    posY = Math.round((p5.mouseY * imgH) / img.height);
+    console.log("Pixel Info", posX, posY);
 
-    // console.log(colors);
+    let i = PixD * (posY * imgW + posX);
+    console.log("RGB Colour", [
+      imgPixels.data[i],
+      imgPixels.data[i + 1],
+      imgPixels.data[i + 2],
+    ]);
 
-    console.log(p5.mouseX, p5.mouseY);
-    let colorInfo = p5._colorMaxes.rgb;
-    console.log(colorInfo);
-
-    let colorName = hexToColorName(
-      rgbHex(colorInfo[0], colorInfo[1], colorInfo[2])
+    let hexColor = rgbHex(
+      imgPixels.data[i],
+      imgPixels.data[i + 1],
+      imgPixels.data[i + 2]
     );
 
-    let utterance = new SpeechSynthesisUtterance("color " + colorName);
+    let colorName = namer(hexColor);
+
+    console.log("Colour names", colorName);
+    let utterance = new SpeechSynthesisUtterance(
+      "color " + colorName.html[0].name
+    );
     speechSynthesis.speak(utterance);
   };
 
