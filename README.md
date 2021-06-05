@@ -7,19 +7,19 @@ image. From 2D graphs, the user will also be able to trace the plot and have an 
 present in the graph. The interaction of the user with the system would be touch-based and the output would be in the form of
 sound which can be either speech or non-speech depending on the various modes of analysis.
 
-## 1. Image Analysis
+## Image Analysis
 
 The various stages involved in the Image Analysis module
 are as follows.
 
-### \* Image Upload:
+- ### Image Upload:
 
 First, an image is uploaded to the webapplication
 from the local system. The image can be of any
 type having a suitable resolution. The teacher or guide of the
 visually-impaired user performs this step.
 
-### \* Image Preprocessing:
+- ### Image Preprocessing:
 
 After uploading the image, it is
 processed to bring it to a suitable size. After that it is put
@@ -32,7 +32,7 @@ for the user to analyze the information extracted from the
 uploaded image. There are two kinds of analysis modes present
 in the tool which are discussed in the following sections.
 
-### \* Object Analysis:
+- ### Object Analysis:
 
 In the Object analysis mode, the image
 is shown on the screen with the objects named and bound
@@ -44,7 +44,7 @@ would be generated over the auditory output that will inform
 the user the class of the object present in the image at that
 current pointer location.
 
-### \* Colour Analysis:
+- ### Colour Analysis:
 
 In the Colour analysis mode, the
 original image is shown on the screen. When the user clicks or
@@ -57,12 +57,12 @@ colours of the CIELAB colour space using the Delta-E colour
 difference technique. Finally, it plays the speech prompt that
 corresponds with that colour.
 
-## 2. Graph Analysis
+## Graph Analysis
 
 The various stages involved in the Graph Analysis module
 are as follows.
 
-### \* 2D Function Input:
+- ### 2D Function Input:
 
 At this stage, a 2-D function is
 provided as input for plotting the graph that is to be analyzed.
@@ -74,7 +74,7 @@ The teacher or guide of the user enters the coefficient of every
 term present in the expression, along with the names of the X
 and Y parameters.
 
-### \* Graph Plotting:
+- ### Graph Plotting:
 
 The tool creates the data points for the
 given 2-D function and then plots the graph. This graph is
@@ -82,7 +82,7 @@ shown on the screen along with a speech prompt
 that tells the X and Y parameters and also the type of graph
 presented. The user can now start the analysis of the graph.
 
-### \* Plot Tracing:
+- ### Plot Tracing:
 
 As the visually-impaired user interacts
 with the screen, a sound prompt indicates the proximity of
@@ -91,7 +91,7 @@ user to navigate the pointer to the plot and then trace over
 it. As the user traces the graph with the pointer, a continuous
 sound guides him/her through the screen.
 
-### \* Special Point Detection:
+- ### Special Point Detection:
 
 A different sound is played
 whenever the user comes across any special point in the plot
