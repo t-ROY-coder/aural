@@ -1,4 +1,4 @@
-# Interactive web-based tool for Image and Graph Analysis using Sonification
+# Interactive web-based Sonification tool for Image and Graph Analysis
 
 In this work, we present an interactive web application developed for the blind students
 studying in schools which help them to grasp useful information from various images and graphs. From the images, the user will
