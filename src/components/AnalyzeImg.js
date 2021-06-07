@@ -116,10 +116,13 @@ function AnalyzeImg() {
     if (!imgPixels) {
       return;
     }
+    speechSynthesis.cancel();
     posX = Math.round((p5.mouseX * imgW) / img.width);
     posY = Math.round((p5.mouseY * imgH) / img.height);
     console.log("Pixel Info", posX, posY);
-
+    if (posX > imgW || posX < 0 || posY > imgH || posY < 0) {
+      return;
+    }
     let i = PixD * (posY * imgW + posX);
     console.log("RGB Colour", [
       imgPixels.data[i],
