@@ -27,8 +27,8 @@ function AnalyzeGraph() {
 
   let resolution = 5;
 
-  // const vol = new Tone.Volume(-20).toDestination();
-  const source = new Tone.Oscillator().toDestination();
+  const vol = new Tone.Volume(-75).toDestination();
+  const source = new Tone.Oscillator().connect(vol).toDestination();
 
   const setup = (p5, canvasParentRef) => {
     x = p5.mouseX;
@@ -101,19 +101,30 @@ function AnalyzeGraph() {
     p5.ellipse(p5.mouseX, p5.mouseY, 30, 30);
   };
 
-  const prompt = () => {
-    const synth = new Tone.Synth().toDestination();
-    const now = Tone.now();
-    synth.triggerAttackRelease("C4", "8n", now);
-  };
-
   const mouseMoved = (p5) => {
     let posX = p5.mouseX / step;
     let posY = (h - p5.mouseY) / step;
     let val = posX * posX * input.x2 + posX * input.x1 + input.x0;
+    let dVal = 2 * input.x2 * posX + input.x1;
     if (Math.abs(val - posY) < 1) {
       console.log("tracing");
       if (source.state === "stopped") source.start();
+      if (input.x2 != 0) {
+        if (Math.abs(dVal) < 1) {
+          source.stop();
+          let utterance = new SpeechSynthesisUtterance("Special point");
+          speechSynthesis.speak(utterance);
+          if (input.x2 > 0) {
+            utterance = new SpeechSynthesisUtterance("The point is a Minima");
+            speechSynthesis.speak(utterance);
+          } else {
+            utterance = new SpeechSynthesisUtterance("The point is a Maxima");
+            speechSynthesis.speak(utterance);
+          }
+        } else {
+          speechSynthesis.cancel();
+        }
+      }
     } else {
       console.log("stopped tracing");
       if (source.state === "started") source.stop();
