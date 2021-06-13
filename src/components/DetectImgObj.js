@@ -44,7 +44,7 @@ function DetectImgObj(props) {
             />
           </div>
           <div className="container">
-            <h4>No Objects Detected! Please try a different Image.</h4>
+            <h4>No Common Objects Detected! Please try a different Image.</h4>
           </div>
         </>
       );
