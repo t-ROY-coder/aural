@@ -36,7 +36,7 @@ function App() {
             <Intro />
           </Route>
           <Route path="*">
-            <div className="container">
+            <div className="container" style={{ minHeight: "100vh" }}>
               <h1>404: Page Not Found</h1>
             </div>
           </Route>

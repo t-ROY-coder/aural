@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 // let street = "https://ourauckland.aucklandcouncil.govt.nz/media/34802/high-st-image.jpg";
 
 function DetectImgObj(props) {
-  const [pred, setPred] = useState([]);
+  const [pred, setPred] = useState(null);
 
   useEffect(() => {
     const image = document.getElementById("image");
@@ -29,7 +29,26 @@ function DetectImgObj(props) {
       });
   }, []);
 
-  if (pred.length > 0) {
+  if (pred) {
+    if (pred.length === 0) {
+      return (
+        <>
+          <div className="container">
+            <h3>Detecting Objects</h3>
+            <img
+              src={props.image.file}
+              id="image"
+              width="100%"
+              alt=""
+              crossOrigin="anonymous"
+            />
+          </div>
+          <div className="container">
+            <h4>No Objects Detected! Please try a different Image.</h4>
+          </div>
+        </>
+      );
+    }
     return (
       <>
         <div className="container">
